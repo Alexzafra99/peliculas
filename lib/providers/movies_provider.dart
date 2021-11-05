@@ -12,6 +12,7 @@ class MoviesProvider extends ChangeNotifier{
   List<Movie> popularMovies = [];
 
   int _popularPage = 0;
+  int _nowPlayingPage = 0;
 
   MoviesProvider(){
     print("MoviesProvider inicializado");
@@ -35,11 +36,13 @@ class MoviesProvider extends ChangeNotifier{
 
   getOnNowPlayingMovies() async{
     
-    final jsonData = await this._getJsonData('3/movie/now_playing');
+    _nowPlayingPage++;
+    
+    final jsonData = await this._getJsonData('3/movie/now_playing', _nowPlayingPage);
     final nowPlayingResponse = NowPlayingResponse.fromJson(jsonData);
     //print(nowPlayingResponse.results[0].title);
 
-    onDisplayMovies = nowPlayingResponse.results;
+    onDisplayMovies = [...onDisplayMovies, ...nowPlayingResponse.results];
     notifyListeners(); 
   }
 
