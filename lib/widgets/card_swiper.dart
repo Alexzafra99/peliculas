@@ -45,9 +45,9 @@ class _CardSwiperState extends State<CardSwiper> {
 
           final movie = widget.movies[index];
            
-           print(index);
+           /* print(index);
            print(widget.movies.length);
-           print(widget.movies[index].title);
+           print(widget.movies[index].title); */
           
           if(index == widget.movies.length-4){
             
@@ -55,7 +55,7 @@ class _CardSwiperState extends State<CardSwiper> {
           }
 
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, "details", arguments: "movie-instance"),
+            onTap: () => Navigator.pushNamed(context, "details", arguments: movie),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
