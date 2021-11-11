@@ -17,6 +17,31 @@ class CardSwiper extends StatefulWidget {
 
 class _CardSwiperState extends State<CardSwiper> {
 
+/*   final SwiperController swiperController = new SwiperController();
+
+  @override
+  void initState() {
+    
+    super.initState();
+
+    swiperController.addListener(() {
+      
+      print(swiperController.index);
+
+      /* if(swiperController.index == widget.movies.length-4){
+
+        widget.onNextPage();
+      }
+ */
+    });
+  } 
+
+  @override
+  void dispose() {
+    
+    super.dispose();
+  } */
+
   @override
   Widget build(BuildContext context) { 
 
@@ -38,6 +63,8 @@ class _CardSwiperState extends State<CardSwiper> {
       child: Swiper(
         itemCount: widget.movies.length,
         layout: SwiperLayout.STACK,
+        //controller: swiperController,
+        //autoplay: true,
         loop: false,
         itemWidth: size.width * 0.6,
         itemHeight: size.height * 0.4,
@@ -54,14 +81,19 @@ class _CardSwiperState extends State<CardSwiper> {
             widget.onNextPage();
           }
 
+          movie.heroId = "swiper-${movie.id}";
+
           return GestureDetector(
             onTap: () => Navigator.pushNamed(context, "details", arguments: movie),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                placeholder: AssetImage("assets/no-image.jpg"), 
-                image: NetworkImage(movie.fullPosterImg),
-                fit: BoxFit.cover
+            child: Hero(
+              tag: movie.heroId!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  placeholder: AssetImage("assets/no-image.jpg"), 
+                  image: NetworkImage(movie.fullPosterImg),
+                  fit: BoxFit.cover
+                ),
               ),
             ),
           );
